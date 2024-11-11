@@ -73,7 +73,7 @@ public class Limelight extends SubsystemBase {
 
     // This adds the Limelight tv value to Shuffleboard
     limelightTV = Shuffleboard.getTab("Limelight")
-      .add("Limelight-Right Target", LimelightHelpers.getTV("limelight-right"))
+      .add("Limelight TV", LimelightHelpers.getTV("limelight-right"))
       .withWidget("Boolean Box")
       .getEntry();
 
@@ -82,11 +82,7 @@ public class Limelight extends SubsystemBase {
       .add("Limelight CL", LimelightHelpers.getLimelightNTDouble("limelight-right", "cl"))
       .getEntry();
     
-    // This adds the Limelight tv value to Shuffleboard
-    limelightTV = Shuffleboard.getTab("Limelight")
-      .add("Limelight-Right Target", LimelightHelpers.getTV("limelight-left"))
-      .withWidget("Boolean Box")
-      .getEntry();
+      // ! This is the default tab that the shuffleboard will open to.
     
   }
 
@@ -115,7 +111,6 @@ public class Limelight extends SubsystemBase {
     limelightTA.setDouble(LimelightHelpers.getTA("limelight-right"));
     limelightPipelineIndex.setDouble(LimelightHelpers.getCurrentPipelineIndex("limelight-right"));
     limelightTV.setBoolean(LimelightHelpers.getTV("limelight-right"));
-    limelightTV.setBoolean(LimelightHelpers.getTV("limelight-left"));
     limelightCL.setDouble(LimelightHelpers.getLimelightNTDouble("limelight-right", "cl"));
   }
 }
