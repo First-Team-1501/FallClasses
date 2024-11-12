@@ -66,6 +66,7 @@ public class Teleop {
         // Initialize joysticks
         driveStick = new CommandJoystick(0);
         rotationStick = new CommandJoystick(1);
+        operatorXbox = new XboxController(2);
 
         // Initialize triggers
         zeroGyro = driveStick.button(16);
