@@ -95,10 +95,9 @@ public class Arm extends SubsystemBase {
 
   public void shuffleBoardInit()
   {
-    //SmartDashboard.putNumber("Stabilizer Position", get());
 
     stabilizerPosition = Shuffleboard.getTab("Info")
-      .add("Stabilizer Position", armEncoder.getPosition())
+      .add("Arm Position", armEncoder.getPosition())
       .getEntry();
   }
 

@@ -15,7 +15,7 @@ public class ArmConfig {
     public static MotorType motorType = MotorType.kBrushless;
 
     // PIDF Values
-    public static double p = 0.01; // .01 good start value
+    public static double p = 0.1; // .01 good start value
     public static double i = 0;
     public static double d = 0;
     public static double f = 0;
@@ -38,8 +38,8 @@ public class ArmConfig {
     public static boolean kInverted = true;
 
     // Current Limits
-    public static int smartCurrentStallLimit = 20; // 40 for big neo, 20 for small neo
-    public static int smartCurrentFreeLimit = 15; // 30 for big neo, 15 for small neo
+    public static int smartCurrentStallLimit = 40; // 40 for big neo, 20 for small neo
+    public static int smartCurrentFreeLimit = 30; // 30 for big neo, 15 for small neo
 
     // Conversion Factors
     public static double positionConversionFactor = 1;
@@ -50,8 +50,8 @@ public class ArmConfig {
     public static boolean softLimitRevEnabled = true;
 
     // Soft Limits
-    public static float softLimitFwd = 27;
-    public static float softLimitRev = -10;
+    public static float softLimitFwd = 20;
+    public static float softLimitRev = -20;
 
     // Analog for Hollow Bore
     public static double analogPositionConversion = 1;

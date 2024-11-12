@@ -9,6 +9,7 @@ import frc.robot.commands.arm.ArmPositionCommand;
 import frc.robot.commands.drivebase.DriveCommand;
 import frc.robot.commands.shooter.ShooterSpeedCommand;
 import frc.robot.subsystems.arm.Arm;
+import frc.robot.subsystems.arm.ArmPositions;
 import frc.robot.subsystems.drivebase.Swerve;
 import frc.robot.subsystems.shooter.Shooter;
 
@@ -51,12 +52,16 @@ public class Teleop {
     private Trigger zeroGyro;
     private Trigger revShooter;
     private Trigger armToZero;
+    private Trigger armForward;
+    private Trigger armBack;
 
     // Commands
     private final DriveCommand driveCommand;
     private final Command zeroGyroCommand;
     private final Command revShooterCommand;
     private final Command armToZeroCommand;
+    private final Command armForwardCommand;
+    private final Command armBackwardsCommand;
 
     public Teleop(RobotContainer robot) {
         this.swerve = robot.getSwerve();
@@ -72,12 +77,16 @@ public class Teleop {
         zeroGyro = driveStick.button(16);
         revShooter = new JoystickButton(operatorXbox, ControllerButton.RightTrigger.value);
         armToZero = new JoystickButton(operatorXbox, ControllerButton.A.value);
+        armForward = new JoystickButton(operatorXbox, ControllerButton.B.value);
+        armBack = new JoystickButton(operatorXbox, ControllerButton.X.value);
 
         // Initialize commands
         driveCommand = new DriveCommand(swerve, driveStick, rotationStick);
         zeroGyroCommand = swerve.runOnce(() -> swerve.seedFieldRelative());
-        revShooterCommand = new ShooterSpeedCommand(shooter, 0, true);
-        armToZeroCommand = new ArmPositionCommand(arm, 0);
+        revShooterCommand = new ShooterSpeedCommand(shooter, 1, true);
+        armToZeroCommand = new ArmPositionCommand(arm, ArmPositions.zero);
+        armForwardCommand = new ArmPositionCommand(arm, ArmPositions.front);
+        armBackwardsCommand = new ArmPositionCommand(arm, ArmPositions.back);
 
         // Set default command
         swerve.setDefaultCommand(driveCommand);
@@ -88,7 +97,9 @@ public class Teleop {
 
         zeroGyro.onTrue(zeroGyroCommand);
         revShooter.whileTrue(revShooterCommand);
-        armToZero.onTrue(armToZeroCommand);
+        armToZero.whileTrue(armToZeroCommand);
+        armForward.whileTrue(armForwardCommand);
+        armBack.whileTrue(armBackwardsCommand);
 
     }
 

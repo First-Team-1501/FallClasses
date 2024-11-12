@@ -6,7 +6,6 @@ package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.arm.Arm;
-import frc.robot.subsystems.arm.ArmPositions;
 
 public class ArmPositionCommand extends Command {
   
@@ -24,12 +23,14 @@ public class ArmPositionCommand extends Command {
   @Override
   public void initialize() 
   {
-    arm.set(position);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    arm.set(position);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -38,6 +39,6 @@ public class ArmPositionCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(arm.get() - position) < ArmPositions.tolerance;
+    return false;
   }
 }
