@@ -9,10 +9,18 @@ public class RobotContainer {
     // Subsystems
     private final Swerve swerve;
 
+    //teleop controller
+    private final Teleop teleop;
+
+
     public RobotContainer() {
         
         //Initialize Subsystems
         swerve = TunerConstants.DriveTrain;
+
+        //init controllers
+        teleop = new Teleop(this);
+        teleop.configureBindings();
 
     }
 
