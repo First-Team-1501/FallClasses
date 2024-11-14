@@ -12,41 +12,77 @@ public class Teleop {
 
     // Subsystems
     private final Swerve swerve;
+    private final Shooter shooter;
 
-    // Joystick
+    // Joysticks
     private final CommandJoystick driveStick;
     private final CommandJoystick rotationStick;
 
+    // Xbox Controller
+    XboxController operatorXbox;
+
+    private enum ControllerButton {
+        A(2),
+        B(3),
+        X(1),
+        Y(4),
+
+        LeftTrigger(7),
+        RightTrigger(8),
+
+        LeftBumper(5),
+        RightBumper(6),
+
+        Select(10),
+        Back(9);
+
+        public final int value;
+
+        ControllerButton(int val) {
+                value = val;
+        }
+    }
+
     // Triggers
-    private final Trigger zeroGyro;
+    private Trigger zeroGyro;
+    private Trigger revShooter;
     
     // Create Commands
     private final DriveCommand driveCommand;
     private final Command zeroGyroCommand;
+    private finale Command revShooter;
 
 
     public Teleop(RobotContainer robot)
     {
-        swerve = robot.getSwerve();
-
-        // Initialize Joysticks
+        this.swerve = robot.getSwerve();
+        this.shooter = robot.getShooter();
+        
+        // Initialize joysticks
         driveStick = new CommandJoystick(0);
         rotationStick = new CommandJoystick(1);
+        operatorXbox = new XboxController(2);
 
-        // Initialize Triggers
+        // Initialize triggers
         zeroGyro = driveStick.button(16);
-
-        // Create the drive Command
+        revShooter = new JoystickButton(operatorXbox, ControllerButton.RightTrigger.value);
+        
+        // Initialize commands
         driveCommand = new DriveCommand(swerve, driveStick, rotationStick);
         zeroGyroCommand = swerve.runOnce(() -> swerve.seedFieldRelative());
+        revShooterCommand = new ShooterSpeedCommand(shooter, 1, true);
 
-        // Set Default Command
+        // Set default command
         swerve.setDefaultCommand(driveCommand);
+
     }
 
     public void configureBindings()
     {
-        // Configuring the Trigger to zero the gyro
+        // Driver Controls
         zeroGyro.onTrue(zeroGyroCommand);
+
+        // Operator Controls
+        revShooter.whileTrue(revShooterCommand);
     }
 }
