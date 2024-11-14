@@ -1,10 +1,14 @@
 package frc.robot.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.shooter.ShooterSpeedCommand;
 import frc.robot.commands.swerve.DriveCommand;
 import frc.robot.subsystems.drivebase.Swerve;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class Teleop {
     
