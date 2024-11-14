@@ -10,7 +10,7 @@ public class ShooterConfig {
   // CAN bus ID
   public static int right_ID = 20;
 
-  // TYpe configs
+  // Type configs
   public static MotorType right_motorType = MotorType.kBrushless;
   public static IdleMode right_idleMode = IdleMode.kCoast; // Brake for position, coast for percent
 
