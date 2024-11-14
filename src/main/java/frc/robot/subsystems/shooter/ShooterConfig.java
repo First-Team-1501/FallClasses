@@ -8,7 +8,7 @@ public class ShooterConfig {
   // **** RIGHT SHOOTER CONFIG **** //
 
   // CAN bus ID
-  public static int sight_ID = 20;
+  public static int right_ID = 20;
 
   // TYpe configs
   public static MotorType right_motorType = MotorType.kBrushless;

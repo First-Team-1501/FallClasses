@@ -25,8 +25,8 @@ public class Shooter extends SubsystemBase {
   public Shooter() 
   {
     // Initialize motors
-    leftMotor = new CANSparkFlex(ShooterConfig.left_id, ShooterConfig.left_motorType);
-    rightMotor = new CANSparkFlex(ShooterConfig.right_id, ShooterConfig.right_motorType);
+    leftMotor = new CANSparkFlex(ShooterConfig.left_ID, ShooterConfig.left_motorType);
+    rightMotor = new CANSparkFlex(ShooterConfig.right_ID, ShooterConfig.right_motorType);
 
     // Set the idle mode
     leftMotor.setIdleMode(ShooterConfig.left_idleMode);

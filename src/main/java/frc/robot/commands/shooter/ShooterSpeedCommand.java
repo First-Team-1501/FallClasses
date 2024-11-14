@@ -5,7 +5,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystem.shooter.Shooter;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class ShooterSpeedCommand extends Command {
   
