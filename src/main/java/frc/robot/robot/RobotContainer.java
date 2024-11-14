@@ -8,20 +8,20 @@ public class RobotContainer {
 
     // Subsystems
     private final Swerve swerve;
+    private final Shooter shooter;
 
-    // Teleop Controller
+    // Auto & Teleop Controllers
     private final Teleop teleop;
 
     public RobotContainer() {
         
         //Initialize Subsystems
         swerve = TunerConstants.DriveTrain;
+        shooter = new Shooter();
 
-        // Initialize Controller
+        // Initialize Auto and Teleop classes
         teleop = new Teleop(this);
         teleop.configureBindings();
-
-        //! Hello Ross was here!!!
 
     }
 
@@ -37,6 +37,10 @@ public class RobotContainer {
     // Getters for subsystems
     public Swerve getSwerve() {
         return swerve;
+    }
+
+    public Shooter getShooter() {
+        return shooter;
     }
 
 }

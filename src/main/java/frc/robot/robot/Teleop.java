@@ -46,12 +46,12 @@ public class Teleop {
     // Triggers
     private Trigger zeroGyro;
     private Trigger revShooter;
+    private Trigger revShooter2;
     
     // Create Commands
     private final DriveCommand driveCommand;
     private final Command zeroGyroCommand;
-    private finale Command revShooter;
-
+    private final Command revShooterCommand;
 
     public Teleop(RobotContainer robot)
     {
@@ -65,6 +65,7 @@ public class Teleop {
 
         // Initialize triggers
         zeroGyro = driveStick.button(16);
+        revShooter2 = driveStick.button(17);
         revShooter = new JoystickButton(operatorXbox, ControllerButton.RightTrigger.value);
         
         // Initialize commands
@@ -81,6 +82,7 @@ public class Teleop {
     {
         // Driver Controls
         zeroGyro.onTrue(zeroGyroCommand);
+        revShooter2.whileTrue(revShooterCommand);
 
         // Operator Controls
         revShooter.whileTrue(revShooterCommand);
