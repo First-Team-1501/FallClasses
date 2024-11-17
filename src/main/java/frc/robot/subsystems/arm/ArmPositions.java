@@ -2,7 +2,7 @@ package frc.robot.subsystems.arm;
 
 public class ArmPositions {
     
-    public static double tolerance = 1;
+    public static double tolerance = 0.01;
 
     public static double zero = 0; 
 
