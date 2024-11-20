@@ -5,23 +5,31 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.swerve.DriveCommand;
 import frc.robot.subsystems.drivebase.Swerve;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class Teleop {
 
-    private final Swerve swerve;
 
+// Subsystems
+    private final Swerve swerve;
+private final Shooter shooter;
+
+// Joysticks
     private final CommandJoystick driveStick;
     private final CommandJoystick rotationStick;
 
+    // Create triggers
     private final Trigger zeroGyro;
 
     // Create Commands
     private final DriveCommand driveCommand;
     private final Command zeroGyroCommand;
 
-    public Teleop(RobotContainer robot)
-    {
+    public Teleop(RobotContainer robot){
+    
+        
         swerve = robot.getSwerve();
+        shooter = robot.getShooter();
 
         driveStick = new CommandJoystick(0);
         rotationStick = new CommandJoystick(1);
