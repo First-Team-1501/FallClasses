@@ -33,8 +33,6 @@ public class Teleop {
         driveCommand = new DriveCommand(swerve, driveStick, rotationStick);
         zeroGyroCommand = swerve.runOnce(() -> swerve.seedFieldRelative());
 
-
-
         //Set Dafault Command
         swerve.setDefaultCommand(driveCommand);
 
