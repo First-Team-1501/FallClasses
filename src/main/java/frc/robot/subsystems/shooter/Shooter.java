@@ -60,10 +60,22 @@ public class Shooter extends SubsystemBase {
     // BURN Flash -- VERY IMPORTANT
     rightMotor.burnFlash();
     leftMotor.burnFlash();
-
-
-
   }
+
+
+  // Set speed of left and right motors
+  public void set(double speed) {
+    rightMotor.set(speed);
+  }
+
+  // Stop Motors
+  public void stop() {
+    rightMotor.stopMotor();
+  }
+
+  
+
+
 
   @Override
   public void periodic() {

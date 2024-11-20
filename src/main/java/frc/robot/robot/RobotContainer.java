@@ -3,11 +3,14 @@ package frc.robot.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivebase.Swerve;
 import frc.robot.subsystems.drivebase.generated.TunerConstants;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class RobotContainer {
 
     // Subsystems
     private final Swerve swerve;
+
+    private final Shooter shooter;
 
     // Teleop Controller
     private final Teleop teleop;
@@ -16,6 +19,7 @@ public class RobotContainer {
         
         //Initialize Subsystems
         swerve = TunerConstants.DriveTrain;
+        shooter = new Shooter();
 
         // Initialize Controller
         teleop = new Teleop(this);
@@ -37,6 +41,10 @@ public class RobotContainer {
     // Getters for subsystems
     public Swerve getSwerve() {
         return swerve;
+    }
+
+    public Shooter getShooter() {
+        return shooter;
     }
 
 }
