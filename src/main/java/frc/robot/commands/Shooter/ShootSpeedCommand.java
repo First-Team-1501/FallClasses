@@ -37,7 +37,7 @@ shooter.set(speed);
   @Override
   public void end(boolean interrupted) 
   {
-    shooter.speed();
+    shooter.stop();
   }
 
   // Returns true when the command should end.
