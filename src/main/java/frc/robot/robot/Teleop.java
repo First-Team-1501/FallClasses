@@ -3,13 +3,15 @@ package frc.robot.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DriveCommand;
+import frc.robot.commands.swerve.DriveCommand;
 import frc.robot.subsystems.drivebase.Swerve;
+import frc.robot.subsystems.shooter.Shooter;
 
 public class Teleop {
 
     //subsystems
     private final Swerve swerve;
+    private final Shooter shooter;
 
     //joysticks
     private final CommandJoystick driveStick;
@@ -25,7 +27,9 @@ public class Teleop {
 
     public Teleop(RobotContainer robot){
 
+        //init subsystems
         swerve = robot.getSwerve();
+        shooter = robot.getShooter();
 
         //init joysticks
         driveStick = new CommandJoystick(0);
