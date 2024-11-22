@@ -9,11 +9,18 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 public class Limelight extends SubsystemBase {
 
     // * This is for the Limelight going to Shuffleboard.
+    
+    // This is the TX vaule of the limelights
     GenericEntry limelightTX;
+    // This is the TY vaule of the limelights
     GenericEntry limelightTY;
+    // This is the TA vaule of the limelights
     GenericEntry limelightTA;
+    // This is to set the pipeline index of the limelights
     GenericEntry limelightPipelineIndex;
+    // This is to check if the limelight has a target
     GenericEntry limelightTV;
+    // This is to check if the limelight is locked
     GenericEntry limelightCL;
 
 
@@ -102,11 +109,17 @@ public class Limelight extends SubsystemBase {
 
   // * This is for the Limelight going to Shuffleboard.
   public void updateShuffleboardLimelight()  {
+    // This updates the limelights TX vaule on Shuffleboard
     limelightTX.setDouble(LimelightHelpers.getTX("limelight-right"));
+    // This updates the limelights TY vaule on Shuffleboard
     limelightTY.setDouble(LimelightHelpers.getTY("limelight-right"));
+    // This updates the limelights TA vaule on Shuffleboard
     limelightTA.setDouble(LimelightHelpers.getTA("limelight-right"));
+    // This updates the limelights pipeline index on Shuffleboard
     limelightPipelineIndex.setDouble(LimelightHelpers.getCurrentPipelineIndex("limelight-right"));
+    // This updates the limelights tv on Shuffleboard
     limelightTV.setBoolean(LimelightHelpers.getTV("limelight-right"));
+    // This updates the limelights cl on Shuffleboard
     limelightCL.setDouble(LimelightHelpers.getLimelightNTDouble("limelight-right", "cl"));
   }
 }
