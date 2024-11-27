@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class ArmConfig {
 
-    // CAB bus ID
+    // CAN bus ID
     public static int ID = 22;
 
 
@@ -19,6 +19,7 @@ public class ArmConfig {
     public static double d = 0;
 
     // Idle Mode
+    
     public static IdleMode idleMode = IdleMode.kBrake;
 
     // Min = Max

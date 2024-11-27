@@ -4,72 +4,96 @@
 
 package frc.robot.subsystems.shooter;
 
+import java.util.Map;
+
 import com.revrobotics.CANSparkFlex;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
-private CANSparkFlex rightMotor;
-private CANSparkFlex leftMotor;
+  private CANSparkFlex rightMotor;
+  private CANSparkFlex leftMotor;
 
-  public Shooter() 
-  {
+  private GenericEntry shooterRPM;
 
-// Initialize motors
-rightMotor = new CANSparkFlex(ShooterConfig.right_ID, ShooterConfig.motorType);
-leftMotor = new CANSparkFlex(ShooterConfig.left_ID, ShooterConfig.motorType);
+  public Shooter() {
 
-// Set idle mode
-rightMotor.setIdleMode(ShooterConfig.idleMode);
-leftMotor.setIdleMode(ShooterConfig.idleMode);
+    // Initialize motors
+    rightMotor = new CANSparkFlex(ShooterConfig.right_ID, ShooterConfig.motorType);
+    leftMotor = new CANSparkFlex(ShooterConfig.left_ID, ShooterConfig.motorType);
 
-// PID Config
-rightMotor.getPIDController().setP(ShooterConfig.p);
-rightMotor.getPIDController().setI(ShooterConfig.i);
-rightMotor.getPIDController().setD(ShooterConfig.d);
+    // Set idle mode
+    rightMotor.setIdleMode(ShooterConfig.idleMode);
+    leftMotor.setIdleMode(ShooterConfig.idleMode);
 
-leftMotor.getPIDController().setP(ShooterConfig.p);
-leftMotor.getPIDController().setI(ShooterConfig.i);
-leftMotor.getPIDController().setD(ShooterConfig.d);
+    // PID Config
+    rightMotor.getPIDController().setP(ShooterConfig.p);
+    rightMotor.getPIDController().setI(ShooterConfig.i);
+    rightMotor.getPIDController().setD(ShooterConfig.d);
 
-// Set output range
-rightMotor.getPIDController().setOutputRange(ShooterConfig.outputMin, ShooterConfig.outputMax);
-leftMotor.getPIDController().setOutputRange(ShooterConfig.outputMin, ShooterConfig.outputMax);
+    leftMotor.getPIDController().setP(ShooterConfig.p);
+    leftMotor.getPIDController().setI(ShooterConfig.i);
+    leftMotor.getPIDController().setD(ShooterConfig.d);
 
-// Set ramp rate
-rightMotor.setOpenLoopRampRate(ShooterConfig.openRampRate);
-leftMotor.setOpenLoopRampRate(ShooterConfig.openRampRate);
+    // Set output range
+    rightMotor.getPIDController().setOutputRange(ShooterConfig.outputMin, ShooterConfig.outputMax);
+    leftMotor.getPIDController().setOutputRange(ShooterConfig.outputMin, ShooterConfig.outputMax);
 
-// Set inversion
-rightMotor.setInverted(ShooterConfig.inverted);
+    // Set ramp rate
+    rightMotor.setOpenLoopRampRate(ShooterConfig.openRampRate);
+    leftMotor.setOpenLoopRampRate(ShooterConfig.openRampRate);
 
-// Set current limits
-rightMotor.setSmartCurrentLimit(ShooterConfig.currentStalllimit, ShooterConfig.currentFreelimit);
-leftMotor.setSmartCurrentLimit(ShooterConfig.currentStalllimit, ShooterConfig.currentFreelimit);
+    // Set inversion
+    rightMotor.setInverted(ShooterConfig.inverted);
 
-//Make left motor fllow right motor
-leftMotor.follow(rightMotor, true);
+    // Set current limits
+    rightMotor.setSmartCurrentLimit(ShooterConfig.currentStalllimit, ShooterConfig.currentFreelimit);
+    leftMotor.setSmartCurrentLimit(ShooterConfig.currentStalllimit, ShooterConfig.currentFreelimit);
 
-//Burn Flash -- VERY IMPORTANT
-rightMotor.burnFlash();
-leftMotor.burnFlash();
+    // Make left motor fllow right motor
+    leftMotor.follow(rightMotor, true);
+
+    // Burn Flash -- VERY IMPORTANT
+    rightMotor.burnFlash();
+    leftMotor.burnFlash();
+
+shuffleboardInit();
 
   }
 
-  public void set(double speed)
-  {
+  public void set(double speed) {
     rightMotor.set(speed);
   }
 
-public void stop()
+  public void stop() {
+    rightMotor.set(0);
+  }
+
+  public double get() {
+    return rightMotor.getEncoder().getVelocity();
+  }
+
+  private void shuffleboardInit() {
+    shooterRPM = Shuffleboard.getTab("Robot Stats")
+        .add("Shooter RPM", get())
+        .withWidget(BuiltInWidgets.kDial)
+        .withProperties(Map.of("min", 0, "max", 9000))
+        .getEntry();
+  }
+
+private void shuffleboardUpdate()
 {
-  rightMotor.set(0);
+  shooterRPM.getDouble(get());
 }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    shuffleboardUpdate();
   }
 }

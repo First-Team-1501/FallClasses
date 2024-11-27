@@ -15,6 +15,7 @@ private final Arm arm;
 
 
     private final Teleop teleop;
+    private final Auto auto;
 
     public RobotContainer() {
 
@@ -28,6 +29,9 @@ private final Arm arm;
 // initialize controllers
         teleop = new Teleop(this);
     teleop.configureBindings();
+    auto = new Auto(this);
+
+
     }
 
     /**
@@ -36,7 +40,7 @@ private final Arm arm;
      * @return Autonomous Command.
      */
     public Command getAutonomousCommand() {
-        return null;
+        return auto.getAutoCommand();
     }
 
     // Getters for subsystems

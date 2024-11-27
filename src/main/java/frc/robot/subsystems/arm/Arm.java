@@ -5,10 +5,13 @@
 package frc.robot.subsystems.arm;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
@@ -16,6 +19,9 @@ public class Arm extends SubsystemBase {
 private CANSparkFlex armMotor;
 private RelativeEncoder armEncoder;
 private SparkPIDController armPID;
+
+// ShuffleBoard
+private GenericEntry armPosition;
 
   public Arm() 
   {
@@ -60,6 +66,7 @@ armMotor.burnFlash();
 
 set(0);
 
+shuffleBoardInit();
   }
 
 // Get position
@@ -74,8 +81,21 @@ public void set(double position)
   armPID.setReference(position, ArmConfig.controlType);
 }
 
+public void shuffleBoardInit()
+{
+  armPosition = Shuffleboard.getTab("Robot Stats")
+.add("Arm Position", get())
+.getEntry();
+}
+
+public void shuffleboardUpdate()
+{
+  armPosition.setDouble(get());
+}
+
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic() 
+  {
+    shuffleboardUpdate();
   }
 }
