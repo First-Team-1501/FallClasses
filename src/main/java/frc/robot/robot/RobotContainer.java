@@ -15,6 +15,7 @@ public class RobotContainer {
 
     //Teleop Controller
     private final Teleop teleop;
+    private final Auto auto;
 
     public RobotContainer() {
         
@@ -23,9 +24,10 @@ public class RobotContainer {
         shooter = new Shooter();
         arm = new Arm();
 
-        //Initalize Controller
+        //Initalize Controllers
         teleop = new Teleop(this);
         teleop.configureBindings();
+        auto = new Auto(this);
 
     }
 
@@ -35,7 +37,7 @@ public class RobotContainer {
      * @return Autonomous Command.
      */
     public Command getAutonomousCommand() {
-        return null;
+        return auto.getAutoCommand();
     }
 
     // Getters for subsystems
