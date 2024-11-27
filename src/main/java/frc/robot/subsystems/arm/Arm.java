@@ -9,6 +9,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
@@ -16,6 +18,9 @@ public class Arm extends SubsystemBase {
   private CANSparkFlex armMotor;
   private RelativeEncoder armEncoder;
   private SparkPIDController armPID;
+
+  // Shuffleboard
+  private GenericEntry armPosition;
 
   public Arm() 
   {
@@ -59,6 +64,8 @@ public class Arm extends SubsystemBase {
 
     set(0);
 
+    shuffleboardInit();
+
   }
 
   // Get position
@@ -73,9 +80,21 @@ public class Arm extends SubsystemBase {
     armPID.setReference(position, ArmConfig.controlType);
   }
 
+  public void shuffleboardInit()
+  {
+    armPosition = Shuffleboard.getTab("Robot Stats")
+      .add("Arm Position", get())
+      .getEntry();
+  }
+
+  public void shuffleboardUpdate()
+  {
+    armPosition.setDouble(get());
+  }
+
   @Override
   public void periodic() 
   {
-    
+    shuffleboardUpdate();
   }
 }

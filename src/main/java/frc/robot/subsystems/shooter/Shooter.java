@@ -4,8 +4,13 @@
 
 package frc.robot.subsystems.shooter;
 
+import java.util.Map;
+
 import com.revrobotics.CANSparkFlex;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -13,6 +18,8 @@ public class Shooter extends SubsystemBase {
   
   private CANSparkFlex rightMotor;
   private CANSparkFlex leftMotor;
+
+  private GenericEntry shooterRPM;
   
   public Shooter() 
   {
@@ -56,6 +63,8 @@ public class Shooter extends SubsystemBase {
     rightMotor.burnFlash();
     leftMotor.burnFlash();
 
+    shuffleboardInit();
+
   }
 
   public void set(double speed)
@@ -63,13 +72,33 @@ public class Shooter extends SubsystemBase {
     rightMotor.set(speed);
   }
 
+  public double get()
+  {
+    return rightMotor.getEncoder().getVelocity();
+  }
+
   public void stop()
   {
     rightMotor.set(0);
   }
 
+  private void shuffleboardInit()
+  {
+    shooterRPM = Shuffleboard.getTab("Robot Stats")
+      .add("Shooter RPM", get())
+      .withWidget(BuiltInWidgets.kDial)
+      .withProperties(Map.of("min", 0, "max", 9000))
+      .getEntry();
+  }
+
+  private void shuffleboardUpdate()
+  {
+    shooterRPM.getDouble(get());
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    shuffleboardUpdate();
   }
 }
