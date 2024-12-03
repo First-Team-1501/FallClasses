@@ -95,7 +95,6 @@ public class Arm extends SubsystemBase {
 
   public void shuffleBoardInit()
   {
-
     stabilizerPosition = Shuffleboard.getTab("Info")
       .add("Arm Position", armEncoder.getPosition())
       .getEntry();
